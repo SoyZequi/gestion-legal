@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Gestion Legal</title>
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+</head>
+<body>
+    <header>
+        <h1>Gestion Legal</h1>
+    </header>
+    <div class="container">
+        <h2>Registro de Casos</h2>
+        <form id="caseForm">
+            <label for="caseName">Nombre del Caso:</label>
+            <input type="text" id="caseName" name="caseName" required>
+            
+            <label for="caseDescription">Descripción:</label>
+            <textarea id="caseDescription" name="caseDescription" required></textarea>
+            
+            <label for="caseLat">Latitud:</label>
+            <input type="number" id="caseLat" name="caseLat" step="0.0001" required>
+            
+            <label for="caseLng">Longitud:</label>
+            <input type="number" id="caseLng" name="caseLng" step="0.0001" required>
+            
+            <button type="submit">Registrar Caso</button>
+        </form>
+
+        <h2>Registro de Clientes</h2>
+        <form id="clientForm">
+            <label for="clientName">Nombre del Cliente:</label>
+            <input type="text" id="clientName" name="clientName" required>
+            
+            <label for="clientEmail">Correo Electrónico:</label>
+            <input type="email" id="clientEmail" name="clientEmail" required>
+            
+            <button type="submit">Registrar Cliente</button>
+        </form>
+
+        <h2>Registro de Abogados</h2>
+        <form id="lawyerForm">
+            <label for="lawyerName">Nombre del Abogado:</label>
+            <input type="text" id="lawyerName" name="lawyerName" required>
+            
+            <label for="lawyerSpecialty">Especialidad:</label>
+            <input type="text" id="lawyerSpecialty" name="lawyerSpecialty" required>
+            
+            <button type="submit">Registrar Abogado</button>
+        </form>
+
+        <h2>Casos Registrados</h2>
+        <div id="caseList"></div>
+
+        <h2>Mapa de Casos</h2>
+        <div id="map" style="height: 400px;"></div>
+
+        <button id="shutdownButton">Cerrar Aplicación</button>
+    </div>
+    <footer>
+        <p>&copy; 2024 Gestion Legal. All rights reserved.</p>
+    </footer>
+    <script src="/scripts.js"></script>
+</body>
+</html>
