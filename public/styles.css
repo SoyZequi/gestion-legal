@@ -1,65 +1,109 @@
-/* styles.css */
+/* Estilos generales */
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Times New Roman', Times, serif;
+    background-color: #66bcd6; /* Fondo verde claro */
+    color: #000a1b;
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h1, h2 {
+    text-align: center;
 }
 
 h1 {
-    color: #333;
-    text-align: center;
-    padding: 20px;
+    margin-top: 20px;
 }
 
+h2 {
+    margin-top: 30px;
+}
+
+/* Contenedor principal para los formularios y mapa */
 .container {
     width: 80%;
-    margin: 0 auto;
+    max-width: 1200px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Espacio entre filas */
+    margin: 20px 0;
+}
+
+/* Fila para los formularios */
+.form-row {
+    display: flex;
+    gap: 20px; /* Espacio entre formularios */
+    flex-wrap: wrap; /* Permitir que los formularios se ajusten en pantalla pequeña */
+}
+
+/* Estilo del formulario */
+.form-box {
+    flex: 1;
+    min-width: calc(33.333% - 20px); /* Ajuste para que tres formularios se alineen en una fila */
+    background: #81a2e0;
     padding: 20px;
-    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(98, 224, 255, 0.1);
+}
+
+label {
+    display: block;
+    margin-top: 10px;
+}
+
+input, textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* Ajustes específicos para textarea */
+textarea {
+    height: 100px;
+    resize: vertical; /* Permitir redimensionar verticalmente */
+}
+
+/* Estilo de los botones */
+button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #568abe; /* Azul claro */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    align-self: flex-start; /* Alinear botón al inicio del contenedor */
+}
+
+button:hover {
+    background-color: #4a90e2; /* Azul más oscuro */
+}
+
+/* Estilo del contenedor del mapa */
+#map {
+    width: 100%;
+    height: 500px;
+    border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-header {
-    background-color: #007bff;
-    color: #fff;
-    padding: 10px 0;
-    text-align: center;
-}
-
-footer {
-    background-color: #333;
-    color: #fff;
-    text-align: center;
-    padding: 10px 0;
-    position: fixed;
-    bottom: 0;
+/* Estilo de la lista de casos */
+#caseList {
     width: 100%;
+    max-width: 1200px;
+    margin-top: 20px;
 }
 
-form {
-    margin-bottom: 20px;
+.case-item {
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
 }
 
-form label {
-    display: block;
-    margin: 10px 0 5px;
-}
-
-form input, form textarea {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 10px;
-}
-
-form button {
-    padding: 10px 15px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    cursor: pointer;
-}
-
-form button:hover {
-    background-color: #0056b3;
+.case-item:last-child {
+    border-bottom: none;
 }
