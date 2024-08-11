@@ -13,27 +13,47 @@ document.addEventListener('DOMContentLoaded', () => {
             <div>
                 <h3>${c.name}</h3>
                 <p>${c.description}</p>
+                <p><strong>Ubicación:</strong> ${c.location}</p>
             </div>
         `).join('');
 
         cases.forEach(c => {
             L.marker([c.lat, c.lng]).addTo(map)
-                .bindPopup(`<b>${c.name}</b><br>${c.description}`);
+                .bindPopup(`<b>${c.name}</b><br>${c.description}<br><strong>Ubicación:</strong> ${c.location}`);
         });
     }
 
     const caseForm = document.getElementById('caseForm');
-    const clientForm = document.getElementById('clientForm');
-    const lawyerForm = document.getElementById('lawyerForm');
     const caseList = document.getElementById('caseList');
+
+    let currentMarker = null;
+
+    map.on('click', async function(e) {
+        const lat = e.latlng.lat;
+        const lng = e.latlng.lng;
+
+        if (currentMarker) {
+            map.removeLayer(currentMarker);
+        }
+
+        currentMarker = L.marker([lat, lng]).addTo(map);
+
+        // Obtener nombre de ubicación usando geocodificación inversa
+        const response = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json`);
+        const data = await response.json();
+        const locationName = data.display_name || "Ubicación desconocida";
+
+        document.getElementById('caseLocation').value = locationName;
+
+        currentMarker.bindPopup(`<b>Ubicación</b><br>${locationName}`).openPopup();
+    });
 
     caseForm.addEventListener('submit', async (event) => {
         event.preventDefault();
 
         const caseName = document.getElementById('caseName').value;
         const caseDescription = document.getElementById('caseDescription').value;
-        const caseLat = parseFloat(document.getElementById('caseLat').value);
-        const caseLng = parseFloat(document.getElementById('caseLng').value);
+        const caseLocation = document.getElementById('caseLocation').value;
 
         const response = await fetch('/cases', {
             method: 'POST',
@@ -43,64 +63,20 @@ document.addEventListener('DOMContentLoaded', () => {
             body: JSON.stringify({
                 name: caseName,
                 description: caseDescription,
-                lat: caseLat,
-                lng: caseLng
+                location: caseLocation,
+                // lat y lng no se envían, solo location
             }),
         });
 
         if (response.ok) {
             alert('Caso registrado con éxito');
             fetchCases();
+            if (currentMarker) {
+                map.removeLayer(currentMarker);
+            }
+            caseForm.reset();
         } else {
             alert('Error al registrar el caso');
-        }
-    });
-
-    clientForm.addEventListener('submit', async (event) => {
-        event.preventDefault();
-
-        const clientName = document.getElementById('clientName').value;
-        const clientEmail = document.getElementById('clientEmail').value;
-
-        const response = await fetch('/clients', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                name: clientName,
-                email: clientEmail,
-            }),
-        });
-
-        if (response.ok) {
-            alert('Cliente registrado con éxito');
-        } else {
-            alert('Error al registrar el cliente');
-        }
-    });
-
-    lawyerForm.addEventListener('submit', async (event) => {
-        event.preventDefault();
-
-        const lawyerName = document.getElementById('lawyerName').value;
-        const lawyerSpecialty = document.getElementById('lawyerSpecialty').value;
-
-        const response = await fetch('/lawyers', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                name: lawyerName,
-                specialty: lawyerSpecialty,
-            }),
-        });
-
-        if (response.ok) {
-            alert('Abogado registrado con éxito');
-        } else {
-            alert('Error al registrar el abogado');
         }
     });
 
@@ -117,3 +93,4 @@ document.addEventListener('DOMContentLoaded', () => {
 
     fetchCases();
 });
+
