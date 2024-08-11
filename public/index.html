@@ -13,17 +13,14 @@
     <div class="container">
         <h2>Registro de Casos</h2>
         <form id="caseForm">
-            <label for="caseName">Nombre del Caso:</label>
+            <label for="caseName">Nombre del caso :</label>
             <input type="text" id="caseName" name="caseName" required>
-            
+
+            <label for="caseLocation">Ubicación:</label>
+            <input type="text" id="caseLocation" name="caseLocation" readonly>
+
             <label for="caseDescription">Descripción:</label>
             <textarea id="caseDescription" name="caseDescription" required></textarea>
-            
-            <label for="caseLat">Latitud:</label>
-            <input type="number" id="caseLat" name="caseLat" step="0.0001" required>
-            
-            <label for="caseLng">Longitud:</label>
-            <input type="number" id="caseLng" name="caseLng" step="0.0001" required>
             
             <button type="submit">Registrar Caso</button>
         </form>
@@ -45,7 +42,15 @@
             <input type="text" id="lawyerName" name="lawyerName" required>
             
             <label for="lawyerSpecialty">Especialidad:</label>
-            <input type="text" id="lawyerSpecialty" name="lawyerSpecialty" required>
+            <select id="lawyerSpecialty" name="lawyerSpecialty" required>
+                <option value="">Seleccionar Especialidad</option>
+                <option value="Civil">Civil</option>
+                <option value="Penal">Penal</option>
+                <option value="Laboral">Laboral</option>
+                <option value="Mercantil">Mercantil</option>
+                <option value="Familiar">Familiar</option>
+                <!-- Agrega más opciones según sea necesario -->
+            </select>
             
             <button type="submit">Registrar Abogado</button>
         </form>
